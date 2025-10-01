@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { FaBars, FaTimes } from 'react-icons/fa';
+import './Header.css';
 
 interface HeaderProps {
   onCertificationClick: () => void;
@@ -9,8 +11,33 @@ interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({ onCertificationClick, onStudyClick, onHomeClick, onLoginClick, onRegisterClick }) => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
   return (
-    <header className="header-gradient">
+    <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
+      <div className="header-container">
+        <div className="d-lg-none mobile-menu-toggle">
+        <button 
+          className="btn btn-link text-white p-0"
+          onClick={toggleMobileMenu}
+          aria-label="Toggle navigation"
+        >
+          {isMobileMenuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
+        </button>
+      </div>
       <div className="container-fluid">
         <div className="row align-items-center py-3">
           <div className="col-md-4">
@@ -47,7 +74,7 @@ export const Header: React.FC<HeaderProps> = ({ onCertificationClick, onStudyCli
               </div>
             </div>
           </div>
-          <div className="col-md-4 text-end">
+          <div className="col-md-4 text-end d-none d-md-block">
             <div className="d-flex align-items-center justify-content-end gap-2">
               <button 
                 className="btn btn-outline-light btn-sm auth-btn"
@@ -72,11 +99,20 @@ export const Header: React.FC<HeaderProps> = ({ onCertificationClick, onStudyCli
         </div>
       </div>
       
-      <nav className="modern-navbar">
+      <nav className={`modern-navbar ${isMobileMenuOpen ? 'mobile-menu-open' : ''}`}>
+        <div className="mobile-menu-close d-lg-none">
+          <button 
+            className="btn btn-link text-white" 
+            onClick={toggleMobileMenu}
+            aria-label="Close navigation"
+          >
+            <FaTimes size={24} />
+          </button>
+        </div>
         <div className="container-fluid">
           <div className="d-flex align-items-center">
-            <ul className="nav-menu d-flex mb-0 list-unstyled navbar-nav-custom">
-              <li className="nav-menu-item">
+            <ul className="nav-menu d-flex flex-column flex-lg-row mb-0 list-unstyled navbar-nav-custom">
+              <li className="nav-menu-item" onClick={() => setIsMobileMenuOpen(false)}>
                 <button 
                   className="nav-menu-link border-0 bg-transparent"
                   onClick={onHomeClick}
@@ -87,7 +123,7 @@ export const Header: React.FC<HeaderProps> = ({ onCertificationClick, onStudyCli
                   TRANG CHỦ
                 </button>
               </li>
-              <li className="nav-menu-item">
+              <li className="nav-menu-item" onClick={() => setIsMobileMenuOpen(false)}>
                 <button 
                   className="nav-menu-link border-0 bg-transparent"
                   onClick={onStudyClick}
@@ -98,7 +134,7 @@ export const Header: React.FC<HeaderProps> = ({ onCertificationClick, onStudyCli
                   ÔN TẬP
                 </button>
               </li>
-              <li className="nav-menu-item">
+              <li className="nav-menu-item" onClick={() => setIsMobileMenuOpen(false)}>
                 <button 
                   className="nav-menu-link border-0 bg-transparent"
                   onClick={onCertificationClick}
@@ -109,7 +145,7 @@ export const Header: React.FC<HeaderProps> = ({ onCertificationClick, onStudyCli
                   THI CHỨNG CHỈ
                 </button>
               </li>
-              <li className="nav-menu-item">
+              <li className="nav-menu-item" onClick={() => setIsMobileMenuOpen(false)}>
                 <a href="#" className="nav-menu-link">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="me-2">
                     <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
@@ -117,7 +153,7 @@ export const Header: React.FC<HeaderProps> = ({ onCertificationClick, onStudyCli
                   ÔN TẬP
                 </a>
               </li>
-              <li className="nav-menu-item">
+              <li className="nav-menu-item" onClick={() => setIsMobileMenuOpen(false)}>
                 <a href="#" className="nav-menu-link">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="me-2">
                     <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
@@ -125,7 +161,7 @@ export const Header: React.FC<HeaderProps> = ({ onCertificationClick, onStudyCli
                   VÍ TIỀN
                 </a>
               </li>
-              <li className="nav-menu-item">
+              <li className="nav-menu-item" onClick={() => setIsMobileMenuOpen(false)}>
                 <a href="#" className="nav-menu-link">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="me-2">
                     <path d="M19 3H5c-1.1 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/>
@@ -133,7 +169,7 @@ export const Header: React.FC<HeaderProps> = ({ onCertificationClick, onStudyCli
                   TÍNH ĐIỂM
                 </a>
               </li>
-              <li className="nav-menu-item">
+              <li className="nav-menu-item" onClick={() => setIsMobileMenuOpen(false)}>
                 <a href="#" className="nav-menu-link">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="me-2">
                     <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
@@ -145,6 +181,7 @@ export const Header: React.FC<HeaderProps> = ({ onCertificationClick, onStudyCli
           </div>
         </div>
       </nav>
+    </div>
     </header>
   );
 };
