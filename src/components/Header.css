@@ -1,35 +1,247 @@
 /* Header styles */
+:root {
+  --primary-blue: #1a4b8c;
+  --primary-hover: #2a5c9c;
+  --text-light: #f8f9fa;
+  --text-muted: rgba(255, 255, 255, 0.85);
+}
+
 .header {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
-  transition: all 0.3s ease;
-  background-color: #1e40af;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 0.5rem 0;
+  background-color: var(--primary-blue);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   width: 100%;
-}
-
-.header.scrolled {
-  background-color: #1e40af;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  padding: 0.3rem 0;
+  box-sizing: border-box;
 }
 
 .header-container {
   width: 100%;
   max-width: 100%;
-  padding: 0 15px;
+  padding: 1rem 2rem;
   margin: 0 auto;
 }
 
-/* Menu styles */
-.modern-navbar {
-  background-color: #1e40af;
-  transition: all 0.3s ease;
+/* Header Top Section */
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
+}
+
+/* Logo Styles */
+.header-logo .logo-button {
+  display: flex;
+  align-items: center;
+  background: transparent;
+  border: none;
+  color: white;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+}
+
+.logo-icon {
+  width: 60px;
+  height: 60px;
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+}
+
+.logo-text h1 {
+  font-size: 1.25rem;
+  margin: 0;
+  line-height: 1.2;
+  font-weight: 600;
+}
+
+.logo-text small {
+  font-size: 0.875rem;
+  opacity: 0.85;
+  display: block;
+}
+
+.auth-buttons {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: 1rem;
+  height: 100%;
+}
+
+.auth-buttons .btn {
+  min-width: 100px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+  padding: 0.4rem 0.8rem;
+  white-space: nowrap;
+}
+
+.auth-buttons .btn-outline-light {
+  border-color: rgba(255, 255, 255, 0.5);
+  color: white;
+}
+
+.auth-buttons .btn-outline-light:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: white;
+}
+
+/* Ensure search container in nav is properly aligned */
+.search-container-header {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+/* Mobile menu styles */
+@media (max-width: 991.98px) {
+  .auth-buttons {
+    display: none;
+  }
+  
+  .mobile-auth-buttons {
+    display: block;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+  }
+}
+
+.auth-buttons .btn-light {
+  background-color: white;
+  color: var(--primary-blue);
+  border: none;
+}
+
+.auth-buttons .btn-light:hover {
+  background-color: #f0f0f0;
+}
+
+/* Mobile Menu Toggle */
+.mobile-menu-toggle {
+  display: none;
+  z-index: 1001;
+}
+
+/* Main Navigation */
+.main-nav {
+  background-color: var(--primary-blue);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  width: 100%;
+}
+
+.nav-container {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Navigation Menu */
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  height: 60px;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  height: 100%;
+}
+
+/* Right side container for search and auth buttons */
+.nav-right {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  gap: 1rem;
+  height: 100%;
+}
+
+/* Search container in nav */
+.search-container-header {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+/* Navigation items */
+.nav-menu-item {
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+/* Navigation links */
+.nav-menu-link {
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  transition: all 0.2s ease;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  position: relative;
+  height: 100%;
+}
+
+.nav-menu-link:hover {
+  color: var(--text-light);
+  background-color: var(--primary-hover);
+}
+
+/* Active state for links */
+.nav-menu-link.active {
+  color: var(--text-light);
+  font-weight: 500;
+}
+
+/* Auth links section */
+.auth-links {
+  margin-left: auto;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0;
+}
+
+/* Register link specific */
+.register-link {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  margin-left: 0.5rem;
+}
+
+.register-link:hover {
+  background-color: rgba(255, 255, 255, 0.25) !important;
+}
+
+/* Icons in nav */
+.nav-menu-link svg {
+  margin-right: 8px;
+  width: 18px;
+  height: 18px;
 }
 
 /* Mobile menu */
@@ -39,11 +251,62 @@
   text-align: right;
 }
 
+/* Mobile Auth Buttons */
+.mobile-auth-buttons {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 1rem;
+}
+
+.mobile-auth-buttons .btn {
+  width: 100%;
+  padding: 0.6rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+}
+
 /* Responsive styles */
 @media (max-width: 991.98px) {
   .header {
+    padding: 0.5rem 1rem;
+  }
+  
+  .header-container {
+    padding: 0;
+  }
+  
+  .mobile-menu-toggle {
+    display: block;
+    z-index: 1001;
+  }
+  
+  .main-nav {
     position: fixed;
-    width: 100%;
+    top: 0;
+    left: -100%;
+    height: 100vh;
+    width: 280px;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    overflow-y: auto;
+    padding-top: 4rem;
+  }
+  
+  .main-nav.mobile-open {
+    left: 0;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .nav-menu {
+    flex-direction: column;
+    padding: 1rem 0 0;
+    height: calc(100vh - 60px);
+    overflow-y: auto;
   }
   
   .modern-navbar {
@@ -73,12 +336,32 @@
     margin: 5px 0;
   }
   
+  .nav-menu {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0.5rem 0;
+  }
+
   .nav-menu-link {
-    padding: 12px 20px !important;
+    padding: 0.75rem 1.5rem !important;
     width: 100%;
-    text-align: left;
+    border-radius: 0;
+  }
+
+  .auth-links {
+    flex-direction: column;
+    width: 100%;
+    padding: 0.5rem 0;
+    margin: 0;
+  }
+
+  .register-link {
+    margin: 0.5rem 1.5rem 0;
+    text-align: center;
+    justify-content: center;
   }
 }
+
 
 /* Main content padding to prevent content from being hidden behind fixed header */
 .main-content {
